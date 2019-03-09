@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>NSDL Physics</title>
+
+  </head>
+  <body>
+
+  <div class="container">
+    <div style="background:transparent !important" class="jumbotron">
+      <div style="font-family: 'Faster One', cursive;">
+        <p>
+          <center>
+          <font size="8">Search for Physics Topics</font>
+          </center>
+        </p>
+      </div>
+    </div>
+
+  <form action="/search/results" method="post">
+    <div class="input-group">
+      <input type="text" class="form-control input-lg" name="input" placeholder="Search"  autofocus>
+      <div class="input-group-btn">
+        <button class="btn btn-primary btn-lg" type="submit">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <center>
+      <h1>Results: ({{ res['hits']['total'] }}) </h1>
+  </center>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>CR_TITLE</th>
+        <th>CR_OERC_URL</th>
+        <th>CR_URL</th>
+        <th>CR_ABSTRACT</th>
+        <th>CR_KEYWORDS</th>
+      </tr>
+    </thead>
+
+{% for hit in res['hits']['hits'] %}
+    <tbody>
+      <tr>
+          <td>{{ hit['_source']['CR_TITLE'] }}</td>
+          <td style="word-break: break-word;"><a href="{{ hit['_source']['CR_OERC_URL'] }}">{{hit['_source']['CR_OERC_URL'] }}</a></td>
+          <td style="word-break: break-word;"><a href="{{ hit['_source']['CR_URL'] }}">{{hit['_source']['CR_URL'] }}</a></td>
+          <td style="word-break: break-word;">{{ hit['_source']['CR_ABSTRACT'] }}</td>
+          <td style="word-break: break-word;">{{ hit['_source']['CR_KEYWORDS'] }}</td>
+      </tr>
+    </tbody>
+{% endfor %}
+  </table>
+
+        <footer class="footer">
+          <p>&copy; 2018 PhilN</p>
+        </footer>
+
+      </div>
+    </div>
+  </body>
+</html>
